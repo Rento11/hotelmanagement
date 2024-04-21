@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+    <meta charset="UTF-8">
+    <title>Rooms List</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container" align="center">
+        <form action="/addRoom" method="post">
+            <div class="mb-3">
+                <label for="roomNumber" class="form-label">Room Number</label>
+                <input type="text" class="form-control w-50" id="roomNumber" name="roomNumber">
+                <span class="text-danger" th:errors="${room.roomNumber}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="pricePerNight" class="form-label">Price Per Night</label>
+                <input class="form-control w-50" type="text" id="pricePerNight" name="pricePerNight" />
+                <span class="text-danger" th:errors="${room.pricePerNight}"></span>
+            </div>
+            <div class="mb-3 justify-content-between">
+                <label class="form-check-label" for="isAvailable">Availability</label>
+                <input class="form-check-input" type="checkbox" name="isAvailable" id="isAvailable">
+                <span class="text-danger" th:errors="${room.available}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="capacity" class="form-label">Capacity</label>
+                <input type="text" class="form-control w-50" id="capacity" name="capacity">
+                <span class="text-danger" th:errors="${room.capacity}"></span>
+            </div>
+            <button type="submit" class="btn btn-primary form-control w-50" value="Add">Add</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
