@@ -38,8 +38,7 @@ public class RoomController {
     }
 
     @PostMapping("/addRoom")
-    public String addRoomPost(Model model, BindingResult bindingResult, @RequestParam(name = "roomNumber") String roomNumber, @RequestParam(name = "pricePerNight") double pricePerNight,@RequestParam(name = "isAvailable") boolean isAvailable,@RequestParam(name = "capacity") int capacity) {
-        Room room = new Room(null,roomNumber,pricePerNight,isAvailable,capacity,null);
+    public String addRoomPost(Model model, @Valid Room room, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "addRoom";
         }

@@ -1,14 +1,14 @@
 package com.example.hotelmanagement;
 
-import com.example.hotelmanagement.doa.entities.Hotel;
-import com.example.hotelmanagement.doa.entities.Room;
-import com.example.hotelmanagement.service.HotelManager;
-import com.example.hotelmanagement.service.RoomManager;
+import com.example.hotelmanagement.doa.entities.*;
+import com.example.hotelmanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class HotelmanagementApplication {
@@ -17,6 +17,14 @@ public class HotelmanagementApplication {
     HotelManager hotelManager;
     @Autowired
     RoomManager roomManager;
+    @Autowired
+    UserManager userManager;
+    @Autowired
+    BookerManager bookerManager;
+    @Autowired
+    BookingManager bookingManager;
+    @Autowired
+    ReviewManager reviewManager;
 
     public static void main(String[] args) {
         SpringApplication.run(HotelmanagementApplication.class, args);
@@ -25,6 +33,34 @@ public class HotelmanagementApplication {
     @Bean
     public CommandLineRunner start(){
         return args -> {
+            User user1 = new User(null,"username1","user@name1.com","password1");
+            User user2 = new User(null,"username2","user@name2.com","password2");
+            User user3 = new User(null,"username3","user@name3.com","password3");
+            User user4 = new User(null,"username4","user@name4.com","password4");
+            User user5 = new User(null,"username5","user@name5.com","password5");
+            User user6 = new User(null,"username6","user@name6.com","password6");
+            userManager.addUser(user1);
+            userManager.addUser(user2);
+            userManager.addUser(user3);
+            userManager.addUser(user4);
+            userManager.addUser(user5);
+            userManager.addUser(user6);
+            Booker booker1 = new Booker();
+            Booker booker2 = new Booker();
+            bookerManager.addBooker(booker1);
+            bookerManager.addBooker(booker2);
+            Booking booking1 = new Booking(null, LocalDate.of(2000,12,12),LocalDate.of(2001,12,12),12.0,null);
+            Booking booking2 = new Booking(null, LocalDate.of(2001,12,12),LocalDate.of(2002,12,12),13.0,null);
+            Booking booking3 = new Booking(null, LocalDate.of(2002,12,12),LocalDate.of(2003,12,12),14.0,null);
+            bookingManager.addBooking(booking1);
+            bookingManager.addBooking(booking2);
+            bookingManager.addBooking(booking3);
+            Review review1 = new Review(null,2,"no comment1",LocalDate.of(2020,12,12),null,null);
+            Review review2 = new Review(null,5,"no comment2",LocalDate.of(2020,12,12),null,null);
+            Review review3 = new Review(null,3,"no comment3",LocalDate.of(2020,12,12),null,null);
+            reviewManager.addReview(review1);
+            reviewManager.addReview(review2);
+            reviewManager.addReview(review3);
             Room room101 = new Room(null,"101",300.00,true,3,null);
             Room room102 = new Room(null,"102",2500.00,true,2,null);
             Room room103 = new Room(null,"103",1200.00,false,1,null);
@@ -41,18 +77,19 @@ public class HotelmanagementApplication {
             roomManager.addRoom(room106);
             roomManager.addRoom(room107);
             roomManager.addRoom(room108);
-            Hotel hotel1 = new Hotel(null,"HYATT REGENCY","RABAT","RABAT DOWNTOWN",null);
-            Hotel hotel2 = new Hotel(null,"MARIOT","TANGIER","TANGIER DOWNTOWN",null);
-            Hotel hotel3 = new Hotel(null,"FOUR SEASONS","CASABLANCA","CASABLANCA DOWNTOWN",null);
-            Hotel hotel4 = new Hotel(null,"IMPERIAL","CASABLANCA","CASABLANCA DOWNTOWN",null);
-            Hotel hotel5 = new Hotel(null,"KENZI","TANGIER","TANGIER DOWNTOWN",null);
-            Hotel hotel6 = new Hotel(null,"MAZAGAN","ELJADIDA","ELJADIDA DOWNTOWN",null);
+            Hotel hotel1 = new Hotel(null,"HYATT REGENCY","RABAT","RABAT DOWNTOWN",null,null);
+            Hotel hotel2 = new Hotel(null,"MARIOT","TANGIER","TANGIER DOWNTOWN",null,null);
+            Hotel hotel3 = new Hotel(null,"FOUR SEASONS","CASABLANCA","CASABLANCA DOWNTOWN",null,null);
+            Hotel hotel4 = new Hotel(null,"IMPERIAL","CASABLANCA","CASABLANCA DOWNTOWN",null,null);
+            Hotel hotel5 = new Hotel(null,"KENZI","TANGIER","TANGIER DOWNTOWN",null,null);
+            Hotel hotel6 = new Hotel(null,"MAZAGAN","ELJADIDA","ELJADIDA DOWNTOWN",null,null);
             hotelManager.addHotel(hotel1);
             hotelManager.addHotel(hotel2);
             hotelManager.addHotel(hotel3);
             hotelManager.addHotel(hotel4);
             hotelManager.addHotel(hotel5);
             hotelManager.addHotel(hotel6);
+
         };
     }
 }

@@ -1,7 +1,7 @@
 package com.example.hotelmanagement.service;
 
-import com.example.hotelmanagement.doa.entities.Room;
-import com.example.hotelmanagement.doa.repositories.RoomRepository;
+import com.example.hotelmanagement.doa.entities.Booker;
+import com.example.hotelmanagement.doa.repositories.BookerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,15 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RoomManagerImplementation implements RoomManager{
+public class BookerManagerImplementation implements BookerManager{
 
     @Autowired
-    private RoomRepository roomRepository;
-
+    private BookerRepository bookerRepository;
     @Override
-    public Room addRoom(Room room) {
+    public Booker addBooker(Booker booker) {
         try{
-            return roomRepository.save(room);
+            return bookerRepository.save(booker);
         }catch(Exception exception){
             System.out.println(exception.getMessage());
             return null;
@@ -26,9 +25,9 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public boolean deleteRoom(Room room) {
+    public boolean deleteBooker(Booker booker) {
         try{
-            roomRepository.delete(room);
+            bookerRepository.delete(booker);
             return true;
         }catch(Exception exception){
             System.out.println(exception.getMessage());
@@ -37,9 +36,9 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public boolean deleteRoomById(Integer id) {
+    public boolean deleteBookerById(Integer id) {
         try{
-            roomRepository.delete(roomRepository.findById(id).get());
+            bookerRepository.delete(bookerRepository.findById(id).get());
             return true;
         }catch(Exception exception){
             System.out.println(exception.getMessage());
@@ -48,20 +47,20 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public boolean updateRoom(Room room) {
-        try{
-            roomRepository.save(room);
+    public boolean updateBooker(Booker booker) {
+        try {
+            bookerRepository.save(booker);
             return true;
-        }catch(Exception exception){
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
             return false;
         }
     }
 
     @Override
-    public Room findRoom(Room room) {
+    public Booker findBooker(Booker booker) {
         try{
-            return roomRepository.findById(room.getId()).get();
+            return bookerRepository.findById(booker.getId()).get();
         }catch(Exception exception){
             System.out.println(exception.getMessage());
             return null;
@@ -69,9 +68,9 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public Room findRoomById(Integer id) {
+    public Booker findBookerById(Integer id) {
         try{
-            return roomRepository.findById(id).get();
+            return bookerRepository.findById(id).get();
         }catch(Exception exception){
             System.out.println(exception.getMessage());
             return null;
@@ -79,9 +78,9 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public List<Room> getAllRooms() {
+    public List<Booker> getAllBookers() {
         try{
-            return roomRepository.findAll();
+            return bookerRepository.findAll();
         }catch(Exception exception) {
             System.out.println(exception.getMessage());
             return null;
@@ -89,12 +88,8 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public Page<Room> getAllRooms(int page, int taille) {
-        return roomRepository.findAll(PageRequest.of(page,taille));
+    public Page<Booker> getAllBookers(int page, int taille) {
+        return bookerRepository.findAll(PageRequest.of(page,taille));
     }
 
-    @Override
-    public Page<Room> searchRooms(String keyword, int page, int taille) {
-        return roomRepository.findRoomByRoomNumberContainingIgnoreCase(keyword, PageRequest.of(page, taille));
-    }
 }

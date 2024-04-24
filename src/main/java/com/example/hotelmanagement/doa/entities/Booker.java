@@ -17,7 +17,7 @@ public class Booker extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToMany(mappedBy = "", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "booker", fetch = FetchType.LAZY)
     private Collection<Review> reviews = new ArrayList<>();
     @OneToMany(mappedBy = "booker", fetch = FetchType.LAZY)
     private Collection<Booking> bookings = new ArrayList<>();

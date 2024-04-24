@@ -19,16 +19,13 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
     @Size(max=100)
     @NotEmpty
     //@Pattern(regexp = "[a-zA-Z0-9\\s]*")
     private String name;
-    @NotNull
     @Size(max=100)
     @NotEmpty
     private String city;
-    @NotNull
     @Size(max=100)
     @NotEmpty
     private String address;

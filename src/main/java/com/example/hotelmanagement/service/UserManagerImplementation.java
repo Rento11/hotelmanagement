@@ -1,7 +1,7 @@
 package com.example.hotelmanagement.service;
 
-import com.example.hotelmanagement.doa.entities.Room;
-import com.example.hotelmanagement.doa.repositories.RoomRepository;
+import com.example.hotelmanagement.doa.entities.User;
+import com.example.hotelmanagement.doa.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RoomManagerImplementation implements RoomManager{
+public class UserManagerImplementation implements UserManager{
 
     @Autowired
-    private RoomRepository roomRepository;
+    private UserRepository userRepository;
 
     @Override
-    public Room addRoom(Room room) {
+    public User addUser(User user) {
         try{
-            return roomRepository.save(room);
+            return userRepository.save(user);
         }catch(Exception exception){
             System.out.println(exception.getMessage());
             return null;
@@ -26,9 +26,19 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public boolean deleteRoom(Room room) {
+    public boolean deleteUser(User user) {
         try{
-            roomRepository.delete(room);
+            userRepository.delete(user);
+            return true;
+        }catch(Exception exception){
+            System.out.println(exception.getMessage());
+            return false;
+        }    }
+
+    @Override
+    public boolean deleteUserById(Integer id) {
+        try{
+            userRepository.delete(userRepository.findById(id).get());
             return true;
         }catch(Exception exception){
             System.out.println(exception.getMessage());
@@ -37,9 +47,9 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public boolean deleteRoomById(Integer id) {
+    public boolean updateUser(User user) {
         try{
-            roomRepository.delete(roomRepository.findById(id).get());
+            userRepository.save(user);
             return true;
         }catch(Exception exception){
             System.out.println(exception.getMessage());
@@ -48,20 +58,9 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public boolean updateRoom(Room room) {
+    public User findUser(User user) {
         try{
-            roomRepository.save(room);
-            return true;
-        }catch(Exception exception){
-            System.out.println(exception.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public Room findRoom(Room room) {
-        try{
-            return roomRepository.findById(room.getId()).get();
+            return userRepository.findById(user.getId()).get();
         }catch(Exception exception){
             System.out.println(exception.getMessage());
             return null;
@@ -69,9 +68,9 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public Room findRoomById(Integer id) {
+    public User findUserById(Integer id) {
         try{
-            return roomRepository.findById(id).get();
+            return userRepository.findById(id).get();
         }catch(Exception exception){
             System.out.println(exception.getMessage());
             return null;
@@ -79,9 +78,9 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public List<Room> getAllRooms() {
+    public List<User> getAllUsers() {
         try{
-            return roomRepository.findAll();
+            return userRepository.findAll();
         }catch(Exception exception) {
             System.out.println(exception.getMessage());
             return null;
@@ -89,12 +88,13 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public Page<Room> getAllRooms(int page, int taille) {
-        return roomRepository.findAll(PageRequest.of(page,taille));
+    public Page<User> getAllUsers(int page, int taille) {
+        return userRepository.findAll(PageRequest.of(page,taille));
     }
 
     @Override
-    public Page<Room> searchRooms(String keyword, int page, int taille) {
-        return roomRepository.findRoomByRoomNumberContainingIgnoreCase(keyword, PageRequest.of(page, taille));
+    public Page<User> searchUsers(String keyword, int page, int taille) {
+        //return userRepository.findUserByUserNumberContainingIgnoreCase(keyword, PageRequest.of(page, taille));
+        return null;
     }
 }
