@@ -14,5 +14,5 @@ public interface HotelManager {
     public Hotel findHotelById(Integer id);
     public List<Hotel> getAllHotels();
     public Page<Hotel> getAllHotels(int page, int taille);
-    public Page<Hotel> searchHotels(String keyword, int page, int taille);
+    public Page<Hotel> searchHotelsByName(String keyword, int page, int taille);
 }

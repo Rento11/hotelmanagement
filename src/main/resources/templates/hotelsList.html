@@ -8,85 +8,75 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="p-3 m-2">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between"><span>Hotels List</span><a th:href="@{/addHotel}">Add Hotel</a></div>
-            <div class="card-body">
-                <div class="d-flex justify-content-center mb-5">
-                    <form method="get" th:action="@{hotelsList}">
-                        <input type="text" name="search" th:value="${keyword}">
-                        <button type="submit" class="btn btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-
-                        3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                        </button>
-                    </form>
+    <div class="p-3 m-2 ">
+        <div class="mx-auto max-w-md mb-5">
+            <form method="get" th:action="@{hotelsList}" class="relative">
+                <label for="search"
+                       class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
                 </div>
-                <div class="container">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>City</th>
-                            <th>Address</th>
-                            <th colspan="2"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="hotel:${hotels}">
-                            <td th:text="${hotel.getName()}"></td>
-                            <td th:text="${hotel.getCity()}"></td>
-                            <td th:text="${hotel.getAddress()}"></td>
-                            <td><a th:href="@{updateHotel(id=${hotel.getId()})}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
-                                     class="bi bi-pencil"
-                                     viewBox="0 0 16 16">
-                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0
-                                    .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5
-                                    0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5
-                                    1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1
-                                    .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-
-                                    1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-
-                                    .5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                                </svg>
+                <input type="search" th:value="${keyword}" name="search" id="search"
+                       class="block w-full pl-10 pr-12 py-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Search" required/>
+                <button type="submit"
+                        class="text-white absolute right-2.5 top-1/2 transform -translate-y-1/2 bg-gray-800 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 duration-300">
+                    Search
+                </button>
+            </form>
+        </div>
+        <div class="mb-8 flex justify-center mt-8">
+            <a th:href="@{/addHotel}"
+               class="bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">Add
+                Hotel</a>
+        </div>
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div th:each="hotel : ${hotels}" class="bg-gray-100 border rounded-lg p-4">
+                    <a th:href="@{roomsList(idHotel=${hotel.getId()})}"
+                       class="bg-gray-100 border rounded-lg p-4 block hover:bg-gray-200 transition duration-300">
+                        <img th:src="@{'/img/' + ${hotel.getImageFileName()}}" alt="Hotel Image"
+                             class="w-full h-40 object-cover rounded-t-lg mb-4">
+                        <div class="text-lg font-semibold mb-2">Hotel: <span th:text="${hotel.getName()}"></span></div>
+                        <div class="mb-2">City: <span th:text="${hotel.getCity()}"></span></div>
+                        <div class="mb-2">Address: <span th:text="${hotel.getAddress()}"></span></div>
+                    </a>
+                    <div class="flex justify-between">
+                        <div class="p-2 text-bg-dark bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
+                            <a th:href="@{updateHotel(id=${hotel.getId()})}" class="flex items-center">
+                                <span class="ml-2">Update</span>
                             </a>
-                            </td>
-                            <td>
-                                <a th:href="@{deleteHotel(id=${hotel.getId()})}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
-                                         class="bi-trash"
-                                         viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5
-                    0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1
-                    0z"/>
-                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1
-                    0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1
-                    1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5
-                    3h11V2h-11z"/>
-                                    </svg>
-                                </a>
-                            </td>
-
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="container">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item me-2" th:each="page, stat : ${pages}">
-                            <a th:class="${stat.index eq currentPage ?'btn btn-primary':'btn btn-outline-primary' }"
-                               th:text="${stat.index}" th:href="@{hotelsList(page=${stat.index},search=${keyword})}"></a>
-                        </li>
-                    </ul>
+                        </div>
+                        <div class="p-2 text-bg-dark bg-gray-800 text-danger py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
+                            <a th:href="@{deleteHotel(id=${hotel.getId()})}" class="flex items-center">
+                                <span class="ml-2">Delete</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+
+    <div class="container mx-auto mt-4">
+        <ul class="flex justify-center">
+            <li th:each="page, stat : ${pages}" class="mr-2">
+                <a th:class="${stat.index eq currentPage ?'btn bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600':' btn bg-gray-200 text-gray-800 py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-300' }"
+                   th:text="${stat.index}" th:href="@{hotelsList(page=${stat.index},search=${keyword})}"></a>
+            </li>
+        </ul>
+    </div>
+
 </div>
 </body>
 </html>

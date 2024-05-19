@@ -13,7 +13,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @ToString
-public class Booker extends User{
+public class Booker{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

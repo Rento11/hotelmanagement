@@ -14,5 +14,5 @@ public interface BookingManager {
     public Booking findBookingById(Integer id);
     public List<Booking> getAllBookings();
     public Page<Booking> getAllBookings(int page, int taille);
-    public Page<Booking> searchBookings(double price, int page, int taille);
+    public Page<Booking> searchBookingsByPrice(double price, int page, int taille);
 }

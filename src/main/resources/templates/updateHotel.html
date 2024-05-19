@@ -3,42 +3,37 @@
       layout:decorate="template">
 <head>
     <meta charset="UTF-8">
-    <title>Adding new Hotel</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <title>Update Hotel</title>
 </head>
-<body class="bg-gray-100">
+<body>
 <div layout:fragment="content">
     <div class="container mx-auto mt-10 mb-20">
-        <h1 class="text-center text-3xl font-semibold mb-6">Add New Hotel</h1>
+        <h1 class="text-center text-3xl font-semibold mb-6">Update Hotel</h1>
         <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-            <form th:action="@{/addHotel}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/addHotel}" method="post">
                 <div class="mb-4">
+                    <input hidden type="text" id="hotel" name="hotel" th:value="${hotel.id}">
                     <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" id="name" name="name"
+                    <input type="text" id="name" name="name" th:value="${hotel.name}"
                            class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     <span class="text-danger" th:errors="${hotel.name}"></span>
                 </div>
                 <div class="mb-4">
                     <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                    <input type="text" id="city" name="city"
+                    <input type="text" id="city" name="city" th:value="${hotel.city}"
                            class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     <span class="text-danger" th:errors="${hotel.city}"></span>
                 </div>
                 <div class="mb-4">
                     <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                    <textarea id="address" name="address" rows="3"
-                              class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                    <input id="address" name="address" th:value="${hotel.address}"
+                           class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     <span class="text-danger" th:errors="${hotel.address}"></span>
                 </div>
-                <div class="mb-4">
-                    <label for="imageFileName" class="block text-sm font-medium text-gray-700">Image:</label>
-                    <input class="form-control" type="file" id="imageFileName" name="imageFileName" accept=".png">
-                   <span class="text-danger" th:errors="${hotel.imageFileName}"></span>
-                </div><!---->
                 <div class="text-center">
                     <button type="submit"
                             class="bg-gray-800 text-white py-2 px-20 rounded-lg transition-colors duration-300 hover:bg-gray-600">
-                        Add Hotel
+                        Update Hotel
                     </button>
                 </div>
             </form>

@@ -94,7 +94,7 @@ public class HotelManagerImplementation implements HotelManager {
     }
 
     @Override
-    public Page<Hotel> searchHotels(String keyword, int page, int taille) {
+    public Page<Hotel> searchHotelsByName(String keyword, int page, int taille) {
         return hotelRepository.findHotelByNameContainsIgnoreCase(keyword, PageRequest.of(page, taille));
     }
 }

@@ -18,8 +18,6 @@ public class HotelmanagementApplication {
     @Autowired
     RoomManager roomManager;
     @Autowired
-    UserManager userManager;
-    @Autowired
     BookerManager bookerManager;
     @Autowired
     BookingManager bookingManager;
@@ -33,18 +31,6 @@ public class HotelmanagementApplication {
     @Bean
     public CommandLineRunner start(){
         return args -> {
-            User user1 = new User(null,"username1","user@name1.com","password1");
-            User user2 = new User(null,"username2","user@name2.com","password2");
-            User user3 = new User(null,"username3","user@name3.com","password3");
-            User user4 = new User(null,"username4","user@name4.com","password4");
-            User user5 = new User(null,"username5","user@name5.com","password5");
-            User user6 = new User(null,"username6","user@name6.com","password6");
-            userManager.addUser(user1);
-            userManager.addUser(user2);
-            userManager.addUser(user3);
-            userManager.addUser(user4);
-            userManager.addUser(user5);
-            userManager.addUser(user6);
             Booker booker1 = new Booker();
             Booker booker2 = new Booker();
             bookerManager.addBooker(booker1);
@@ -61,14 +47,26 @@ public class HotelmanagementApplication {
             reviewManager.addReview(review1);
             reviewManager.addReview(review2);
             reviewManager.addReview(review3);
-            Room room101 = new Room(null,"101",300.00,true,3,null);
-            Room room102 = new Room(null,"102",2500.00,true,2,null);
-            Room room103 = new Room(null,"103",1200.00,false,1,null);
-            Room room104 = new Room(null,"104",1500.00,true,2,null);
-            Room room105 = new Room(null,"105",300.00,true,3,null);
-            Room room106 = new Room(null,"106",200.00,true,2,null);
-            Room room107 = new Room(null,"107",1150.00,false,1,null);
-            Room room108 = new Room(null,"108",500.00,true,2,null);
+            Hotel hotel1 = new Hotel(null,"HYATT REGENCY","RABAT","RABAT DOWNTOWN","fromInside.png",null,null);
+            Hotel hotel2 = new Hotel(null,"MARIOT","TANGIER","TANGIER DOWNTOWN","fromInside.png",null,null);
+            Hotel hotel3 = new Hotel(null,"FOUR SEASONS","CASABLANCA","CASABLANCA DOWNTOWN","fromInside.png",null,null);
+            Hotel hotel4 = new Hotel(null,"HILTON","CASABLANCA","CASABLANCA DOWNTOWN","fromInside.png",null,null);
+            Hotel hotel5 = new Hotel(null,"KENZI","TANGIER","TANGIER DOWNTOWN","fromInside.png",null,null);
+            Hotel hotel6 = new Hotel(null,"MAZAGAN","ELJADIDA","ELJADIDA DOWNTOWN","fromInside.png",null,null);
+            hotelManager.addHotel(hotel1);
+            hotelManager.addHotel(hotel2);
+            hotelManager.addHotel(hotel3);
+            hotelManager.addHotel(hotel4);
+            hotelManager.addHotel(hotel5);
+            hotelManager.addHotel(hotel6);
+            Room room101 = new Room(null,"101",300.00,false,"room.png",3,hotel1);
+            Room room102 = new Room(null,"102",2500.00,true,"room.png",2,hotel1);
+            Room room103 = new Room(null,"103",1200.00,false,"room.png",1,hotel1);
+            Room room104 = new Room(null,"104",1500.00,true,"room.png",2,hotel1);
+            Room room105 = new Room(null,"105",300.00,true,"room.png",3,hotel2);
+            Room room106 = new Room(null,"106",200.00,true,"room.png",2,hotel2);
+            Room room107 = new Room(null,"107",1150.00,false,"room.png",1,hotel3);
+            Room room108 = new Room(null,"108",500.00,true,"room.png",2,null);
             roomManager.addRoom(room101);
             roomManager.addRoom(room102);
             roomManager.addRoom(room103);
@@ -77,18 +75,6 @@ public class HotelmanagementApplication {
             roomManager.addRoom(room106);
             roomManager.addRoom(room107);
             roomManager.addRoom(room108);
-            Hotel hotel1 = new Hotel(null,"HYATT REGENCY","RABAT","RABAT DOWNTOWN",null,null);
-            Hotel hotel2 = new Hotel(null,"MARIOT","TANGIER","TANGIER DOWNTOWN",null,null);
-            Hotel hotel3 = new Hotel(null,"FOUR SEASONS","CASABLANCA","CASABLANCA DOWNTOWN",null,null);
-            Hotel hotel4 = new Hotel(null,"IMPERIAL","CASABLANCA","CASABLANCA DOWNTOWN",null,null);
-            Hotel hotel5 = new Hotel(null,"KENZI","TANGIER","TANGIER DOWNTOWN",null,null);
-            Hotel hotel6 = new Hotel(null,"MAZAGAN","ELJADIDA","ELJADIDA DOWNTOWN",null,null);
-            hotelManager.addHotel(hotel1);
-            hotelManager.addHotel(hotel2);
-            hotelManager.addHotel(hotel3);
-            hotelManager.addHotel(hotel4);
-            hotelManager.addHotel(hotel5);
-            hotelManager.addHotel(hotel6);
 
         };
     }

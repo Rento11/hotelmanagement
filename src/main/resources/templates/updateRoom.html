@@ -4,7 +4,7 @@
       layout:decorate="template">
 <head>
     <meta charset="UTF-8">
-    <title>Add Room</title>
+    <title>Update Room</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
@@ -14,45 +14,37 @@
 <body>
 <div layout:fragment="content">
     <div class="container mx-auto mt-10 mb-20">
-        <h1 class="text-center text-3xl font-semibold mb-6">Add New Room</h1>
+        <h1 class="text-center text-3xl font-semibold mb-6">Update Room</h1>
         <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-            <form th:action="@{/addRoom}" method="post" enctype="multipart/form-data">
-                <label for="hotel" hidden></label>
-                <input type="text" class="form-control w-50" id="hotel" name="idHotel" th:value="${hotel.getId()}" hidden>
+            <form th:action="@{/updateRoom}" method="post">
+                <label for="idHotel" hidden></label>
+                <input hidden type="text" id="idHotel" name="idHotel" th:value="${hotel.getId()}">
+                <label for="idRoom" hidden></label>
+                <input hidden type="text" id="idRoom" name="idRoom" th:value="${room.getId()}">
                 <div class="mb-4">
-                    <label for="roomNumber" class="block text-sm font-medium text-gray-700">Room Number</label>
-                    <input type="text" id="roomNumber" name="roomNumber"
+                    <label for="name" class="block text-sm font-medium text-gray-700">Room Number</label>
+                    <input type="text" id="name" name="roomNumber" th:value="${room.getRoomNumber()}"
                            class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    <span class="text-danger" th:errors="${room.roomNumber}"></span>
                 </div>
                 <div class="mb-4">
                     <label for="pricePerNight" class="block text-sm font-medium text-gray-700">Price Per Night</label>
-                    <input type="text" id="pricePerNight" name="pricePerNight"
+                    <input type="text" id="pricePerNight" name="pricePerNight" th:value="${room.getPricePerNight()}"
                            class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    <span class="text-danger" th:errors="${room.pricePerNight}"></span>
                 </div>
                 <div class="mb-4">
-                    <label for="isAvailable" class="block text-sm font-medium text-gray-700">Availability</label>
-                    <input type="checkbox" id="isAvailable" name="isAvailable"
-                           class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <label for="isAvailable" class="block text-sm font-medium text-gray-700">Available</label>
+                    <input type="checkbox" id="isAvailable" name="isAvailable"  th:checked="${room.isAvailable()}" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     <input type="hidden" name="isAvailable" value="false">
-                    <span class="text-danger" th:errors="${room.available}"></span>
                 </div>
                 <div class="mb-4">
                     <label for="capacity" class="block text-sm font-medium text-gray-700">Capacity</label>
-                    <input type="number" id="capacity" name="capacity"
+                    <input id="capacity" name="capacity" th:value="${room.getCapacity()}"
                            class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    <span class="text-danger" th:errors="${room.capacity}"></span>
-                </div>
-                <div class="mb-4">
-                    <label for="formFileMultiple" class="form-label">Image:</label>
-                    <input class="form-control" type="file" id="formFileMultiple" name="imageFileName" accept=".jpeg, .jpg, .png" multiple>
-                    <span class="text-danger" th:errors="${room.imageFileName}"></span>
                 </div>
                 <div class="text-center">
                     <button type="submit"
                             class="bg-gray-800 text-white py-2 px-20 rounded-lg transition-colors duration-300 hover:bg-gray-600">
-                        Add Room To Hotel
+                        Update Room
                     </button>
                 </div>
             </form>

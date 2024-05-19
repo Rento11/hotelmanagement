@@ -92,7 +92,7 @@ public class BookingManagerImplementation implements BookingManager{
     }
 
     @Override
-    public Page<Booking> searchBookings(double price, int page, int taille) {
+    public Page<Booking> searchBookingsByPrice(double price, int page, int taille) {
         return bookingRepository.findBookingByTotalPriceBefore(price, PageRequest.of(page, taille));
     }
 }

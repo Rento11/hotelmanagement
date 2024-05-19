@@ -29,6 +29,7 @@ public class Hotel {
     @Size(max=100)
     @NotEmpty
     private String address;
+    private String imageFileName;
     @OneToOne
     private Review review;
     @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY)

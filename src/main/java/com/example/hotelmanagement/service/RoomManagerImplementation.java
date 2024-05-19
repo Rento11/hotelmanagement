@@ -1,5 +1,6 @@
 package com.example.hotelmanagement.service;
 
+import com.example.hotelmanagement.doa.entities.Hotel;
 import com.example.hotelmanagement.doa.entities.Room;
 import com.example.hotelmanagement.doa.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,12 @@ public class RoomManagerImplementation implements RoomManager{
     }
 
     @Override
-    public Page<Room> searchRooms(String keyword, int page, int taille) {
+    public Page<Room> searchRoomsByRoomNumber(String keyword, int page, int taille) {
         return roomRepository.findRoomByRoomNumberContainingIgnoreCase(keyword, PageRequest.of(page, taille));
+    }
+
+    @Override
+    public Page<Room> searchRoomByHotel(Hotel hotel, int page, int taille) {
+        return roomRepository.findRoomByHotel(hotel,PageRequest.of(page,taille));
     }
 }

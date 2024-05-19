@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="template">
 <head>
     <meta charset="UTF-8">
@@ -8,85 +7,115 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
     <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
-<body>
-<div layout:fragment="content">
-    <div class="p-3 m-2">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between"><span>Rooms List</span><a th:href="@{/addRoom}">Add Room</a></div>
-            <div class="card-body">
-                <div class="d-flex justify-content-center mb-5">
-                    <form method="get" th:action="@{roomsList}">
-                        <input type="text" name="search" th:value="${keyword}">
-                        <button type="submit" class="btn btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-
-                        3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                        </button>
-                    </form>
+<body class="bg-gray-100">
+<div class="container-fluid">
+    <div layout:fragment="content">
+        <div class="w-full mx-auto max-w-7xl">
+            <div class="flex justify-center mt-5">
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-8 md:mb-10">Book the room that suits you!</h1>
+            </div>
+            <div class="mb-8 flex justify-center mt-8">
+                <a th:href="@{addRoom(idHotel=${idHotel})}"
+                   class="bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">Add Room</a>
+            </div>
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/4 bg-gray-200 p-4 rounded-md">
+                    <div class="text-center mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800">Filters</h2>
+                    </div>
+                    <div class="p-3 bg-light rounded">
+                        <form th:action="@{/roomsList}" method="post" class="space-y-6">
+                            <div class="mb-4">
+                                <label class="block text-lg font-medium text-gray-700 mb-2">Availability</label>
+                                <div class="flex items-center justify-center">
+                                    <input class="form-check-input mr-2" name="available" type="checkbox" value="true" id="available">
+                                    <label class="form-check-label text-lg" for="available">
+                                        Available Only
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-lg font-medium text-gray-700 mb-2">Price Range</label>
+                                <select class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 sm:text-sm" name="priceRange" id="priceRange">
+                                    <option value="all">All</option>
+                                    <option value="<200">Less than $200</option>
+                                    <option value="200-400">$200 - $400</option>
+                                    <option value=">400">Greater than $400</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="beds" class="block text-lg font-medium text-gray-700 mb-2">Number of Beds</label>
+                                <select class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 sm:text-sm" name="beds" id="beds">
+                                    <option value="">All</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4+</option>
+                                </select>
+                            </div>
+                            <div class="flex justify-center">
+                                <button type="submit" class="bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
+                                    Apply
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="container">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Room Number</th>
-                            <th>Price per Night</th>
-                            <th>Availability</th>
-                            <th>Capacity</th>
-                            <th colspan="2"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="room:${rooms}">
-                            <td th:text="${room.getRoomNumber()}"></td>
-                            <td th:text="${room.getPricePerNight()}"></td>
-                            <td th:text="${room.isAvailable()}"></td>
-                            <td th:text="${room.getCapacity()}"></td>
-                            <td><a th:href="@{updateRoom(id=${room.getId()})}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
-                                     class="bi bi-pencil"
-                                     viewBox="0 0 16 16">
-                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0
-                                    .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5
-                                    0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5
-                                    1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1
-                                    .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-
-                                    1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-
-                                    .5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                                </svg>
-                            </a>
-                            </td>
-                            <td>
-                                <a th:href="@{deleteRoom(id=${room.getId()})}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
-                                         class="bi-trash"
-                                         viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5
-                    0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1
-                    0z"/>
-                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1
-                    0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1
-                    1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5
-                    3h11V2h-11z"/>
-                                    </svg>
-                                </a>
-                            </td>
 
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="container">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item me-2" th:each="page, stat : ${pages}">
-                            <a th:class="${stat.index eq currentPage ?'btn btn-primary':'btn btn-outline-primary' }"
-                               th:text="${stat.index}" th:href="@{roomsList(page=${stat.index},search=${keyword})}"></a>
-                        </li>
-                    </ul>
+                <!-- Rooms Grid Section -->
+                <div class="w-full md:w-3/4 bg-gray-100 p-4 rounded-md">
+                    <div class="text-center mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800">Rooms</h2>
+                    </div>
+                    <div class="container mx-auto">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div th:each="room : ${rooms}" class="bg-gray-100 border rounded-lg p-4">
+                                <img th:src="@{'/img/' + ${room.getImageFileName()}}" alt="Room Image"
+                                     class="w-full h-40 object-cover rounded-t-lg mb-4">
+                                <div class="text-lg font-semibold mb-2">Room: <span
+                                        th:text="${room.getRoomNumber()}"></span></div>
+                                <div class="mb-2">Price per night: <span th:text="${room.getPricePerNight()}"></span>
+                                </div>
+                                <div class="mb-2">Capacity: <span th:text="${room.getCapacity()}"></span></div>
+                                <div class="mb-2">Available:
+                                    <span th:if="${room.isAvailable()}">Yes</span>
+                                    <span th:unless="${room.isAvailable()}">No</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <div class="p-2 bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
+                                        <a th:href="@{updateRoom(idHotel=${room.getHotel().getId()},idRoom=${room.getId()},page=${currentPage})}" class="flex items-center">
+                                            <span class="ml-2">Update</span>
+                                        </a>
+                                    </div>
+                                    <div class="p-2 bg-gray-800 text-danger py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
+                                        <a th:href="@{deleteRoom(idHotel=${room.getHotel().getId()},idRoom=${room.getId()},page=${currentPage})}" class="flex items-center">
+                                            <span class="ml-2">Delete</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center">
+                                    <div class="p-2 bg-gray-800 text-primary py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
+                                        <a th:href="@{addBooking(idHotel=${room.getHotel().getId()},idRoom=${room.getId()})}" class="flex items-center">
+                                            <span class="ml-2">Book</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="container mx-auto mt-4 mb-5">
+            <ul class="flex justify-center">
+                <li th:each="page, stat : ${pages}" class="mr-2">
+                    <a th:class="${stat.index == currentPage ? 'btn bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600' : 'btn bg-gray-200 text-gray-800 py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-300'}"
+                       th:text="${stat.index}" th:href="@{roomsList(page=${stat.index},id=${id})}"></a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
