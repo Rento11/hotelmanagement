@@ -10,25 +10,31 @@
     <div class="container mx-auto mt-10 mb-20">
         <h1 class="text-center text-3xl font-semibold mb-6">Update Hotel</h1>
         <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-            <form th:action="@{/addHotel}" method="post">
+            <form th:action="@{/updateHotel}" method="post" enctype="multipart/form-data">
                 <div class="mb-4">
-                    <input hidden type="text" id="hotel" name="hotel" th:value="${hotel.id}">
+                    <input hidden type="text" id="hotel" name="id" th:value="${hotel.getId()}">
                     <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" id="name" name="name" th:value="${hotel.name}"
+                    <input type="text" id="name" name="name" th:value="${hotel.getName()}"
                            class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     <span class="text-danger" th:errors="${hotel.name}"></span>
                 </div>
                 <div class="mb-4">
                     <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                    <input type="text" id="city" name="city" th:value="${hotel.city}"
+                    <input type="text" id="city" name="city" th:value="${hotel.getCity()}"
                            class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     <span class="text-danger" th:errors="${hotel.city}"></span>
                 </div>
                 <div class="mb-4">
                     <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                    <input id="address" name="address" th:value="${hotel.address}"
+                    <input id="address" name="address" th:value="${hotel.getAddress()}"
                            class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     <span class="text-danger" th:errors="${hotel.address}"></span>
+                </div>
+                <div class="mb-4">
+                    <label for="file" class="block text-sm font-medium text-gray-700">Image</label>
+                    <input type="file" id="file" name="file" th:value="${hotel.getImageFileName()}"
+                           class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <span class="text-danger" th:errors="${hotel.imageFileName}"></span>
                 </div>
                 <div class="text-center">
                     <button type="submit"

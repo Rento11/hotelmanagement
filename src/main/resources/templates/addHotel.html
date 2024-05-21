@@ -32,9 +32,10 @@
                 </div>
                 <div class="mb-4">
                     <label for="imageFileName" class="block text-sm font-medium text-gray-700">Image:</label>
-                    <input class="form-control" type="file" id="imageFileName" name="imageFileName" accept=".png">
+                    <input class="form-control" type="file" id="imageFileName" name="file" accept=".png">
                    <span class="text-danger" th:errors="${hotel.imageFileName}"></span>
-                </div><!---->
+                </div>
+
                 <div class="text-center">
                     <button type="submit"
                             class="bg-gray-800 text-white py-2 px-20 rounded-lg transition-colors duration-300 hover:bg-gray-600">
