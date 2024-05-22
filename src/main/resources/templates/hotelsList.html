@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template">
+      layout:decorate="template"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Hotels List</title>
@@ -34,10 +35,13 @@
                 </button>
             </form>
         </div>
-        <div class="mb-8 flex justify-center mt-8">
+        <div class="mb-8 flex justify-center mt-8" sec:authorize="isAuthenticated()">
             <a th:href="@{/addHotel}"
                class="bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">Add
                 Hotel</a>
+        </div>
+        <div th:if="${param.success}" class="alert alert-success">
+            You are registered successfuly
         </div>
         <div class="container mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -50,14 +54,15 @@
                         <div class="mb-2">City: <span th:text="${hotel.getCity()}"></span></div>
                         <div class="mb-2">Address: <span th:text="${hotel.getAddress()}"></span></div>
                     </a>
-                    <div class="flex justify-between">
+                    <div class="flex justify-between" sec:authorize="isAuthenticated()">
                         <div class="p-2 text-bg-dark bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
                             <a th:href="@{updateHotel(id=${hotel.getId()})}" class="flex items-center">
                                 <span class="ml-2">Update</span>
                             </a>
                         </div>
                         <div class="p-2 text-bg-dark bg-gray-800 text-danger py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
-                            <a th:href="@{deleteHotel(id=${hotel.getId()})}" class="flex items-center">
+                            <a onclick="confirm('Are you sure !!!')" th:href="@{deleteHotel(id=${hotel.getId()})}"
+                               class="flex items-center">
                                 <span class="ml-2">Delete</span>
                             </a>
                         </div>

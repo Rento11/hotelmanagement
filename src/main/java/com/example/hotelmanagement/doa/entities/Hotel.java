@@ -1,5 +1,6 @@
 package com.example.hotelmanagement.doa.entities;
 
+import com.example.hotelmanagement.config.UserEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

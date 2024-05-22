@@ -1,5 +1,8 @@
 package com.example.hotelmanagement.service;
 
+
+import com.example.hotelmanagement.config.UserEntity;
+import com.example.hotelmanagement.config.UserRepository;
 import com.example.hotelmanagement.doa.entities.Hotel;
 import com.example.hotelmanagement.doa.repositories.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,8 @@ public class HotelManagerImplementation implements HotelManager {
 
     @Autowired
     private HotelRepository hotelRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Hotel addHotel(Hotel hotel) {

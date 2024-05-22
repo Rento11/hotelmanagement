@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Rooms List</title>
@@ -18,7 +20,7 @@
                 <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-8 md:mb-10">Book the room that suits you!</h1>
             </div>
             <div class="mb-8 flex justify-center mt-8">
-                <a th:href="@{addRoom(idHotel=${idHotel})}"
+                <a sec:authorize="isAuthenticated()" th:href="@{addRoom(idHotel=${idHotel})}"
                    class="bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">Add Room</a>
             </div>
             <div class="flex flex-wrap justify-between">
@@ -84,7 +86,7 @@
                                     <span th:if="${room.isAvailable()}">Yes</span>
                                     <span th:unless="${room.isAvailable()}">No</span>
                                 </div>
-                                <div class="flex justify-between mb-2">
+                                <div sec:authorize="isAuthenticated()" class="flex justify-between mb-2">
                                     <div class="p-2 bg-gray-800 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-gray-600">
                                         <a th:href="@{updateRoom(idHotel=${room.getHotel().getId()},idRoom=${room.getId()},page=${currentPage})}" class="flex items-center">
                                             <span class="ml-2">Update</span>
